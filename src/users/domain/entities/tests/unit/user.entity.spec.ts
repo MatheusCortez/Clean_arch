@@ -3,38 +3,62 @@ import { UserEntity, UserProps } from '../../user.entity'
 
 describe('User Entity unit Tests', () => {
     let props: UserProps
-    let suv: UserEntity
+    let sut: UserEntity
     beforeEach(() => {
         props = UserDataBuilder({})
 
-        suv = new UserEntity(props)
+        sut = new UserEntity(props)
     })
     it('Should be returned props inputed in UserEntity', async () => {
-        expect(suv.props.name).toBe(props.name)
-        expect(suv.props.email).toBe(props.email)
-        expect(suv.props.password).toBe(props.password)
-        expect(suv.props.createdAt).toBeInstanceOf(Date)
+        expect(sut.props.name).toBe(props.name)
+        expect(sut.props.email).toBe(props.email)
+        expect(sut.props.password).toBe(props.password)
+        expect(sut.props.createdAt).toBeInstanceOf(Date)
     })
 
     describe('Getters', () => {
         it('Should be returned name in UserEntity', () => {
-            expect(suv.props.name).toBeDefined()
-            expect(suv.props.name).toBe(props.name)
-            expect(typeof suv.props.name).toBe('string')
+            expect(sut.props.name).toBeDefined()
+            expect(sut.props.name).toBe(props.name)
+            expect(typeof sut.props.name).toBe('string')
         })
 
         it('Should be returned email in UserEntity', () => {
-            expect(suv.props.email).toBeDefined()
-            expect(suv.props.email).toBe(props.email)
-            expect(typeof suv.props.email).toBe('string')
+            expect(sut.props.email).toBeDefined()
+            expect(sut.props.email).toBe(props.email)
+            expect(typeof sut.props.email).toBe('string')
         })
         it('Should be returned password in UserEntity', () => {
-            expect(suv.props.password).toBeDefined()
-            expect(typeof suv.props.password).toBe('string')
+            expect(sut.props.password).toBeDefined()
+            expect(typeof sut.props.password).toBe('string')
         })
         it('Should be returned createdAt in UserEntity', () => {
-            expect(suv.props.createdAt).toBeDefined()
-            expect(suv.props.createdAt).toBeInstanceOf(Date)
+            expect(sut.props.createdAt).toBeDefined()
+            expect(sut.props.createdAt).toBeInstanceOf(Date)
+        })
+    })
+    describe('Setters', () => {
+        it('Setter of name field', () => {
+            sut['name'] = 'other name'
+            expect(sut.props.name).toEqual('other name')
+            expect(typeof sut.props.name).toBe('string')
+        })
+        it('Setter of password field', () => {
+            sut['password'] = 'other password'
+            expect(sut.props.password).toEqual('other password')
+            expect(typeof sut.props.password).toBe('string')
+        })
+    })
+
+    describe('Update Methods', () => {
+        it('Should update a user', () => {
+            sut.update('other name')
+            expect(sut.props.name).toEqual('other name')
+        })
+
+        it('Should update the password field', () => {
+            sut.updatePassword('other password')
+            expect(sut.props.password).toEqual('other password')
         })
     })
 })
